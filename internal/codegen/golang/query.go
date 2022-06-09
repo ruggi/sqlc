@@ -151,15 +151,16 @@ func (v QueryValue) Scan() string {
 
 // A struct used to generate methods and fields on the Queries struct
 type Query struct {
-	Cmd          string
-	Comments     []string
-	MethodName   string
-	FieldName    string
-	ConstantName string
-	SQL          string
-	SourceName   string
-	Ret          QueryValue
-	Arg          QueryValue
+	QueryStructName string
+	Cmd             string
+	Comments        []string
+	MethodName      string
+	FieldName       string
+	ConstantName    string
+	SQL             string
+	SourceName      string
+	Ret             QueryValue
+	Arg             QueryValue
 	// Used for :copyfrom
 	Table *plugin.Identifier
 }

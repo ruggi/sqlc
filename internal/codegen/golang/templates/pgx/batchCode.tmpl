@@ -26,7 +26,7 @@ type {{.Ret.Type}} struct { {{- range .Ret.Struct.Fields}}
 
 {{range .Comments}}//{{.}}
 {{end -}}
-func (q *Queries) {{.MethodName}}(ctx context.Context, {{ if $.EmitMethodsWithDBArgument}}db DBTX,{{end}} {{.Arg.SlicePair}}) *{{.MethodName}}BatchResults {
+func (q *{{.QueryStructName}}) {{.MethodName}}(ctx context.Context, {{ if $.EmitMethodsWithDBArgument}}db {{.QueryStructName}}DBTX,{{end}} {{.Arg.SlicePair}}) *{{.MethodName}}BatchResults {
     batch := &pgx.Batch{}
     for _, a := range {{index .Arg.Name}} {
         vals := []interface{}{

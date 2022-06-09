@@ -146,14 +146,15 @@ func buildQueries(req *plugin.CodeGenRequest, structs []Struct) ([]Query, error)
 		}
 
 		gq := Query{
-			Cmd:          query.Cmd,
-			ConstantName: constantName,
-			FieldName:    sdk.LowerTitle(query.Name) + "Stmt",
-			MethodName:   query.Name,
-			SourceName:   query.Filename,
-			SQL:          query.Text,
-			Comments:     query.Comments,
-			Table:        query.InsertIntoTable,
+			Cmd:             query.Cmd,
+			ConstantName:    constantName,
+			FieldName:       sdk.LowerTitle(query.Name) + "Stmt",
+			MethodName:      query.Name,
+			SourceName:      query.Filename,
+			SQL:             query.Text,
+			Comments:        query.Comments,
+			QueryStructName: req.Settings.Go.QueryStructName,
+			Table:           query.InsertIntoTable,
 		}
 		sqlpkg := SQLPackageFromString(req.Settings.Go.SqlPackage)
 

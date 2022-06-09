@@ -1,11 +1,11 @@
 {{define "interfaceCodeStd"}}
-    type Querier interface {
+    type {{.QueryStructName}}Querier interface {
     {{- $dbtxParam := .EmitMethodsWithDBArgument -}}
     {{- range .GoQueries}}
         {{- if and (eq .Cmd ":one") ($dbtxParam) }}
             {{range .Comments}}//{{.}}
             {{end -}}
-            {{.MethodName}}(ctx context.Context, db DBTX, {{.Arg.Pair}}) ({{.Ret.DefineType}}, error)
+            {{.MethodName}}(ctx context.Context, db {{.QueryStructName}}DBTX, {{.Arg.Pair}}) ({{.Ret.DefineType}}, error)
         {{- else if eq .Cmd ":one"}}
             {{range .Comments}}//{{.}}
             {{end -}}
@@ -14,7 +14,7 @@
         {{- if and (eq .Cmd ":many") ($dbtxParam) }}
             {{range .Comments}}//{{.}}
             {{end -}}
-            {{.MethodName}}(ctx context.Context, db DBTX, {{.Arg.Pair}}) ([]{{.Ret.DefineType}}, error)
+            {{.MethodName}}(ctx context.Context, db {{.QueryStructName}}DBTX, {{.Arg.Pair}}) ([]{{.Ret.DefineType}}, error)
         {{- else if eq .Cmd ":many"}}
             {{range .Comments}}//{{.}}
             {{end -}}
@@ -23,7 +23,7 @@
         {{- if and (eq .Cmd ":exec") ($dbtxParam) }}
             {{range .Comments}}//{{.}}
             {{end -}}
-            {{.MethodName}}(ctx context.Context, db DBTX, {{.Arg.Pair}}) error
+            {{.MethodName}}(ctx context.Context, db {{.QueryStructName}}DBTX, {{.Arg.Pair}}) error
         {{- else if eq .Cmd ":exec"}}
             {{range .Comments}}//{{.}}
             {{end -}}
@@ -32,7 +32,7 @@
         {{- if and (eq .Cmd ":execrows") ($dbtxParam) }}
             {{range .Comments}}//{{.}}
             {{end -}}
-            {{.MethodName}}(ctx context.Context, db DBTX, {{.Arg.Pair}}) (int64, error)
+            {{.MethodName}}(ctx context.Context, db {{.QueryStructName}}DBTX, {{.Arg.Pair}}) (int64, error)
         {{- else if eq .Cmd ":execrows"}}
             {{range .Comments}}//{{.}}
             {{end -}}
@@ -41,7 +41,7 @@
         {{- if and (eq .Cmd ":execlastid") ($dbtxParam) }}
             {{range .Comments}}//{{.}}
             {{end -}}
-            {{.MethodName}}(ctx context.Context, db DBTX, {{.Arg.Pair}}) (int64, error)
+            {{.MethodName}}(ctx context.Context, db {{.QueryStructName}}DBTX, {{.Arg.Pair}}) (int64, error)
         {{- else if eq .Cmd ":execlastid"}}
             {{range .Comments}}//{{.}}
             {{end -}}
@@ -50,7 +50,7 @@
         {{- if and (eq .Cmd ":execresult") ($dbtxParam) }}
             {{range .Comments}}//{{.}}
             {{end -}}
-            {{.MethodName}}(ctx context.Context, db DBTX, {{.Arg.Pair}}) (sql.Result, error)
+            {{.MethodName}}(ctx context.Context, db {{.QueryStructName}}DBTX, {{.Arg.Pair}}) (sql.Result, error)
         {{- else if eq .Cmd ":execresult"}}
             {{range .Comments}}//{{.}}
             {{end -}}
@@ -59,5 +59,5 @@
     {{- end}}
     }
 
-    var _ Querier = (*Queries)(nil)
+    var _ {{.QueryStructName}}Querier = (*{{.QueryStructName}})(nil)
 {{end}}

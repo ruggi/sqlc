@@ -36,6 +36,7 @@ type tmplCtx struct {
 	EmitAllEnumValues         bool
 	UsesCopyFrom              bool
 	UsesBatch                 bool
+	QueryStructName           string
 }
 
 func (t *tmplCtx) OutputQuery(sourceName string) bool {
@@ -97,6 +98,7 @@ func generate(req *plugin.CodeGenRequest, enums []Enum, structs []Struct, querie
 		Enums:                     enums,
 		Structs:                   structs,
 		SqlcVersion:               req.SqlcVersion,
+		QueryStructName:           golang.QueryStructName,
 	}
 
 	if tctx.UsesCopyFrom && tctx.SQLPackage != SQLPackagePGX {
